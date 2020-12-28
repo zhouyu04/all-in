@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzyy.dev.allin.mapper.IndexMapper">
+
+    <resultMap id="kvMap" type="com.zzyy.dev.allin.entity.Kvs">
+        <id column="id" property="id"/>
+        <result column="fkey" property="key"/>
+        <result column="fvalue" property="value"/>
+        <result column="createtime" property="createtime"/>
+        <result column="modifytime" property="modifytime"/>
+    </resultMap>
+
+
+    <select id="getCodeByKey" resultMap="kvMap">
+        SELECT * from kvs WHERE fkey = #{key}
+    </select>
+</mapper>

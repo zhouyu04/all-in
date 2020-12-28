@@ -11,8 +11,6 @@
     <title>index</title>
     <!-- Bootstrap -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <%--<link rel="stylesheet" href="/swiper/package/swiper-bundle.min.css">--%>
 </head>
 <body>
 <%--大爷进来玩啊！！！--%>
@@ -21,19 +19,18 @@
 
 <div class="row">
     <div class="row">
-        <div class="col-md-4">
-            <a href="/toPicture">这是图片</a>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"><h6>错误啦</h6>
         </div>
-        <div class="col-md-4">这是打牌</div>
-        <div class="col-md-4">哈哈哈哈</div>
+        <div class="col-md-4"></div>
     </div>
 </div>
+
 
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="/js/jquery-1.11.3.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
-
 
 
 
