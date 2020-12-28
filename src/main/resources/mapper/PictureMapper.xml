@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzyy.dev.allin.mapper.PictureMapper">
+
+    <resultMap id="picMap" type="com.zzyy.dev.allin.entity.PictureDO">
+        <id column="id" property="id"/>
+        <result column="ftype" property="type"/>
+        <result column="originname" property="originname"/>
+        <result column="filename" property="filename"/>
+        <result column="filepath" property="filepath"/>
+        <result column="createtime" property="createtime"/>
+    </resultMap>
+
+
+    <insert id="addPicture" parameterType="com.zzyy.dev.allin.entity.PictureDO">
+        INSERT INTO pic(ftype,originname,filename,filepath)
+        VALUES (#{type},#{originname},#{filename},#{filepath})
+    </insert>
+</mapper>
