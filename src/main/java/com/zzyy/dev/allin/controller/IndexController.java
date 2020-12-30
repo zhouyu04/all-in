@@ -59,6 +59,8 @@ public class IndexController {
         if (!StringUtils.equals(code, value)) {
             return false;
         }
+
+        request.getSession().setAttribute("user", "darling");
         return true;
     }
 }

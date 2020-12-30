@@ -165,6 +165,13 @@
             },
             touchEnd: function (swiper, event) {
 
+                //先将图片都初始化
+                var arr = [1,2,3,4,5,6,7,8];
+                $.each(arr,function (i,val) {
+                    $("#m" + i).attr("src", "/static/Koala.jpg")
+                })
+
+
                 var dir = swiper.swipeDirection
                 console.log(dir)
                 var page = parseInt($("#page").attr("value"))
