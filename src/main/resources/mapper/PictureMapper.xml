@@ -16,4 +16,8 @@
         INSERT INTO pic(ftype,originname,filename,filepath)
         VALUES (#{type},#{originname},#{filename},#{filepath})
     </insert>
+
+    <select id="listPic" resultMap="picMap">
+        select * from pic order by createtime desc limit #{pageindex},#{pagesize}
+    </select>
 </mapper>

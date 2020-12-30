@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/pic")
@@ -22,8 +24,8 @@ public class PictureController {
 
     private Logger logger = LoggerFactory.getLogger(PictureController.class);
 
-    private static final String PIC_PATH = "/usr/local/webserver/nginx/html/images/";
-    private static final String PIC_PATH_X = "C:\\Users\\zzyy\\Desktop\\pic\\";
+    private static final String PIC_PATH = "/usr/local/tomcat/static/";
+    private static final String PIC_PATH_X = "C:\\Users\\Administrator\\Desktop\\pic\\";
 
 
     @Resource
@@ -33,30 +35,57 @@ public class PictureController {
     @ResponseBody
     public String uploadPic(@RequestParam("files") MultipartFile[] files) {
 
-        String filePath = PIC_PATH_X;
+
+        if (files == null || files.length == 0) {
+            return "文件不能为空";
+        }
+
+        if (files.length > 9) {
+            return "文件最多9张";
+        }
+
+        String filePath = PIC_PATH;
         for (MultipartFile file : files) {
             // 上传简单文件名
             String originalFilename = file.getOriginalFilename();
             String type = StringUtils.substringAfterLast(originalFilename, ".");
             String filename = System.currentTimeMillis() + originalFilename;
             // 存储路径
-            filePath = filePath + filename;
+            String allPath = filePath + filename;
             try {
                 // 保存文件
-                file.transferTo(new File(filePath));
+                checkDirWxist(PIC_PATH);
+                file.transferTo(new File(allPath));
             } catch (IOException e) {
                 logger.error("上传图片失败", e);
                 e.printStackTrace();
             }
-            PictureDO pictureDO = new PictureDO(type, originalFilename, filename, filePath);
+            PictureDO pictureDO = new PictureDO(type, originalFilename, filename, allPath);
             pictureService.uploadPic(pictureDO);
 
         }
-        System.out.println(filePath);
-        return filePath;
+        return "上传完成";
+    }
 
+    private void checkDirWxist(String picPath) {
 
-//        return "上传成功";
+        File file = new File(picPath);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+    }
+
+    @RequestMapping("/list")
+    @ResponseBody
+    public List<PictureDO> list(@RequestParam("pageindex") int pageindex) {
+
+        if (pageindex <= 0) {
+            pageindex = 1;
+        }
+        List<PictureDO> lists = new ArrayList<>(8);
+        lists.addAll(pictureService.listPic(pageindex));
+        return lists;
     }
 
 

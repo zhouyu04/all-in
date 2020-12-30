@@ -16,11 +16,23 @@ public class PictureDO {
 
     private Date createtime;
 
+    public PictureDO() {
+    }
+
     public PictureDO(String type, String originname, String filename, String filepath) {
         this.type = type;
         this.originname = originname;
         this.filename = filename;
         this.filepath = filepath;
+    }
+
+    public PictureDO(long id, String type, String originname, String filename, String filepath, Date createtime) {
+        this.id = id;
+        this.type = type;
+        this.originname = originname;
+        this.filename = filename;
+        this.filepath = filepath;
+        this.createtime = createtime;
     }
 
     public long getId() {
