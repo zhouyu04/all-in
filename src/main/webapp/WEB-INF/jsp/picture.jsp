@@ -180,6 +180,10 @@
                                 $("#m" + index).attr("src", pre + val.filename)
                             })
                         } else {
+                            $.each(data, function (i, val) {
+                                var index = i + 1
+                                $("#m" + index).attr("src", pre + val.filename)
+                            })
                             for (var i = data.length + 1; i <= 8; i++) {
                                 $("#m" + i).attr("src", "/static/Koala.jpg")
                             }
@@ -199,6 +203,10 @@
                                 $("#m" + index).attr("src", pre + val.filename)
                             })
                         } else {
+                            $.each(data, function (i, val) {
+                                var index = i + 1
+                                $("#m" + index).attr("src", pre + val.filename)
+                            })
                             for (var i = data.length + 1; i <= 8; i++) {
                                 $("#m" + i).attr("src", "/static/Koala.jpg")
                             }
