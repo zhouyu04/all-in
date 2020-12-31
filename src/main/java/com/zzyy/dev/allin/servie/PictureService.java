@@ -7,5 +7,5 @@ import java.util.List;
 public interface PictureService {
     void uploadPic(PictureDO pictureDO);
 
-    List<PictureDO> listPic(int pageindex);
+    List<PictureDO> listPic(int pageindex, int pagesize);
 }

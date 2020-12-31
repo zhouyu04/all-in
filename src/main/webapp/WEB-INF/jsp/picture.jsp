@@ -44,74 +44,48 @@
 
             <ul class="docs-pictures clearfix">
                 <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
+                    <a class="thumbnail">
                         <li><img id="m1" src="/static/Koala.jpg" alt="Cuo Na Lake"
                                  class="img-thumbnail">
                         </li>
                     </a>
                 </div>
                 <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
+                    <a class="thumbnail">
                         <li><img id="m2" src="/static/Koala.jpg" alt="Tibetan Plateau"
                                  class="img-thumbnail">
                         </li>
                     </a>
                 </div>
                 <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
+                    <a class="thumbnail">
                         <li><img id="m3" src="/static/Koala.jpg" alt="Jokhang Temple"
                                  class="img-thumbnail">
                         </li>
                     </a>
                 </div>
                 <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
+                    <a class="thumbnail">
                         <li><img id="m4" src="/static/Koala.jpg" alt="Potala Palace 1"
                                  class="img-thumbnail">
                         </li>
                     </a>
                 </div>
-                <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <li><img id="m5" src="/static/Koala.jpg" alt="Potala Palace 2"
-                                 class="img-thumbnail">
-                        </li>
-                    </a>
+                <div>
+                    <input id="page" type="text" value="1">
                 </div>
-                <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <li><img id="m6" src="/static/Koala.jpg" alt="Potala Palace 3"
-                                 class="img-thumbnail">
-                        </li>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <li><img id="m7" src="/static/Koala.jpg" alt="Lhasa River"
-                                 class="img-thumbnail">
-                        </li>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <li><img id="m8" src="/static/Koala.jpg" alt="Namtso 1"
-                                 class="img-thumbnail"></li>
-                    </a>
-                </div>
-
             </ul>
-
         </div>
         <hr/>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
     </div>
 
-    <div>
-        <input id="page" type="text" value="1">
-    </div>
+
 
 </form>
+
+
 
 
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
@@ -135,6 +109,7 @@
 <!-- Swiper JS -->
 <script src="/swiper/package/swiper-bundle.min.js"></script>
 
+
 <!-- Initialize Swiper -->
 <script>
 
@@ -152,7 +127,7 @@
             //初始化页面数据
             init: function () {
                 //去后台获取数据
-                $.get("/pic/list", {"pageindex": "1"}, function (data, status, xhr) {
+                $.get("/pic/list", {"pageindex": "1","pagesize":"4"}, function (data, status, xhr) {
 
                     $.each(data, function (i, val) {
                         var index = i + 1
@@ -161,15 +136,19 @@
                 })
 
                 $("#page").attr("value", 1)
+                //加载viewer
+                alert("开始加载...")
+                fn()
+                alert("结束加载...")
 
             },
             touchEnd: function (swiper, event) {
 
                 //先将图片都初始化
-                var arr = [1,2,3,4,5,6,7,8];
-                $.each(arr,function (i,val) {
+                var arr = [1, 2, 3, 4];
+                $.each(arr, function (i, val) {
                     $("#m" + i).attr("src", "/static/Koala.jpg")
-                })
+                });
 
 
                 var dir = swiper.swipeDirection
@@ -179,9 +158,9 @@
                 if (dir == "next") {
                     console.log(page + 1)
                     //去后台获取数据
-                    $.get("/pic/list", {"pageindex": page + 1}, function (data, status, xhr) {
+                    $.get("/pic/list", {"pageindex": page + 1,"pagesize":"4"}, function (data, status, xhr) {
 
-                        if (data.length >= 8) {
+                        if (data.length >= 4) {
                             $.each(data, function (i, val) {
                                 var index = i + 1
                                 $("#m" + index).attr("src", pre + val.filename)
@@ -191,7 +170,7 @@
                                 var index = i + 1
                                 $("#m" + index).attr("src", pre + val.filename)
                             })
-                            for (var i = data.length + 1; i <= 8; i++) {
+                            for (var i = data.length + 1; i <= 4; i++) {
                                 $("#m" + i).attr("src", "/static/Koala.jpg")
                             }
 
@@ -202,9 +181,9 @@
                     $("#page").attr("value", page + 1)
                 } else {
                     //去后台获取数据
-                    $.get("/pic/list", {"pageindex": page - 1}, function (data, status, xhr) {
+                    $.get("/pic/list", {"pageindex": page - 1,"pagesize":"4"}, function (data, status, xhr) {
 
-                        if (data.length >= 8) {
+                        if (data.length >= 4) {
                             $.each(data, function (i, val) {
                                 var index = i + 1
                                 $("#m" + index).attr("src", pre + val.filename)
@@ -214,7 +193,7 @@
                                 var index = i + 1
                                 $("#m" + index).attr("src", pre + val.filename)
                             })
-                            for (var i = data.length + 1; i <= 8; i++) {
+                            for (var i = data.length + 1; i <= 4; i++) {
                                 $("#m" + i).attr("src", "/static/Koala.jpg")
                             }
 
@@ -226,8 +205,10 @@
                     } else {
                         $("#page").attr("value", page - 1)
                     }
-
                 }
+                //加载viewer
+                fn()
+
             }
         }
 

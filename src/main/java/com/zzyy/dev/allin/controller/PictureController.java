@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -78,14 +77,18 @@ public class PictureController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public List<PictureDO> list(@RequestParam("pageindex") int pageindex) {
+    public List<PictureDO> list(@RequestParam("pageindex") int pageindex,
+                                @RequestParam("pagesize") int pagesize) {
 
         if (pageindex <= 0) {
             pageindex = 1;
         }
-        List<PictureDO> lists = new ArrayList<>(8);
-        lists.addAll(pictureService.listPic(pageindex));
-        return lists;
+
+        if (pagesize <= 0){
+            pagesize = 4;
+        }
+
+        return pictureService.listPic(pageindex,pagesize);
     }
 
 

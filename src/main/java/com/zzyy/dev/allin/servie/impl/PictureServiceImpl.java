@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class PictureServiceImpl implements PictureService {
 
-    private static final int PAGE_SIZE = 8;
 
     @Resource
     PictureMapper pictureMapper;
@@ -23,10 +22,10 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public List<PictureDO> listPic(int pageindex) {
+    public List<PictureDO> listPic(int pageindex, int pagesize) {
 
-        pageindex = (pageindex - 1) * PAGE_SIZE;
+        pageindex = (pageindex - 1) * pagesize;
 
-        return pictureMapper.listPic(pageindex,PAGE_SIZE);
+        return pictureMapper.listPic(pageindex, pagesize);
     }
 }

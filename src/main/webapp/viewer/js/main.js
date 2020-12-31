@@ -1,6 +1,6 @@
-$(function () {
+var fn = function () {
     'use strict';
-
+    alert("加载中...")
     var console = window.console || { log: function () {} };
     var $images = $('.docs-pictures');
     var $toggles = $('.docs-toggles');
@@ -41,29 +41,7 @@ $(function () {
         }
     }
 
-    $images.on({
-        ready:  function (e) {
-            console.log(e.type);
-        },
-        show:  function (e) {
-            console.log(e.type);
-        },
-        shown:  function (e) {
-            console.log(e.type);
-        },
-        hide:  function (e) {
-            console.log(e.type);
-        },
-        hidden: function (e) {
-            console.log(e.type);
-        },
-        view:  function (e) {
-            console.log(e.type);
-        },
-        viewed: function (e) {
-            console.log(e.type);
-        }
-    }).viewer(options);
+    $images.viewer(options);
 
     toggleButtons(options.inline ? 'inline' : 'modal');
 
@@ -78,6 +56,7 @@ $(function () {
 
     $buttons.on('click', 'button', function () {
         var data = $(this).data();
+        alert(data)
         var args = data.arguments || [];
 
         if (data.method) {
@@ -101,4 +80,4 @@ $(function () {
     });
 
     $('[data-toggle="tooltip"]').tooltip();
-});
+}

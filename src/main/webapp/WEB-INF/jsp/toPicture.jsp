@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <input id="code" name="code" type="text" value="" placeholder="请输入密码">
+            <input id="code" name="code" type="password" value="" placeholder="请输入密码">
             <input id="submit" type="submit" value="确定">
         </div>
         <div class="col-md-4"></div>
