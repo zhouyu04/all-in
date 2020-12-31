@@ -113,7 +113,6 @@
 <!-- Initialize Swiper -->
 <script>
 
-    var imgsrc = new Array();
     var pre = "http://121.4.27.171/images/";
 
     var swiper = new Swiper('.swiper-container', {
@@ -137,22 +136,24 @@
 
                 $("#page").attr("value", 1)
                 //加载viewer
-                alert("开始加载...")
                 fn()
-                alert("结束加载...")
-
             },
             touchEnd: function (swiper, event) {
 
+                var dir = swiper.swipeDirection
+                console.log(dir)
+                
+                if (dir == undefined) {
+                    return
+                }
+                
                 //先将图片都初始化
                 var arr = [1, 2, 3, 4];
                 $.each(arr, function (i, val) {
                     $("#m" + i).attr("src", "/static/Koala.jpg")
                 });
 
-
-                var dir = swiper.swipeDirection
-                console.log(dir)
+                
                 var page = parseInt($("#page").attr("value"))
 
                 if (dir == "next") {
@@ -179,7 +180,12 @@
 
                     })
                     $("#page").attr("value", page + 1)
-                } else {
+
+                    //加载viewer
+                    fn()
+                }
+
+                if (dir == "prev") {
                     //去后台获取数据
                     $.get("/pic/list", {"pageindex": page - 1,"pagesize":"4"}, function (data, status, xhr) {
 
@@ -205,9 +211,11 @@
                     } else {
                         $("#page").attr("value", page - 1)
                     }
+
+                    //加载viewer
+                    fn()
                 }
-                //加载viewer
-                fn()
+
 
             }
         }

@@ -1,6 +1,5 @@
 var fn = function () {
     'use strict';
-    alert("加载中...")
     var console = window.console || { log: function () {} };
     var $images = $('.docs-pictures');
     var $toggles = $('.docs-toggles');
