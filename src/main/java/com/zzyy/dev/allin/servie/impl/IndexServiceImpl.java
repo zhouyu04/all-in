@@ -1,6 +1,7 @@
 package com.zzyy.dev.allin.servie.impl;
 
 import com.zzyy.dev.allin.entity.Kvs;
+import com.zzyy.dev.allin.entity.User;
 import com.zzyy.dev.allin.mapper.IndexMapper;
 import com.zzyy.dev.allin.servie.IndexService;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,10 @@ public class IndexServiceImpl implements IndexService {
     public Kvs getCodeByKey(String code) {
 
         return indexMapper.getCodeByKey(code);
+    }
+
+    @Override
+    public User getUserByname(String username) {
+        return indexMapper.getUserByname(username);
     }
 }

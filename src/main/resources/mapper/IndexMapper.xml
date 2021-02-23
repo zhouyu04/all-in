@@ -14,4 +14,10 @@
     <select id="getCodeByKey" resultMap="kvMap">
         SELECT * from kvs WHERE fkey = #{key}
     </select>
+
+
+    <select id="getUserByname" resultType="com.zzyy.dev.allin.entity.User">
+        select * from users where username = #{username}
+    </select>
+
 </mapper>

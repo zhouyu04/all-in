@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzyy.dev.allin.mapper.CardMapper">
+
+    <resultMap id="houseMap" type="com.zzyy.dev.allin.entity.House">
+        <result property="id" column="id"/>
+        <result property="status" column="status"/>
+        <result property="times" column="times"/>
+
+        <collection property="users" column="userid" ofType="com.zzyy.dev.allin.entity.User">
+            <id property="id" column="u_id"/>
+            <result property="nickname" column="nickname"/>
+        </collection>
+
+    </resultMap>
+
+
+    <select id="getHouse" resultMap="houseMap">
+        SELECT * FROM house a
+        LEFT JOIN users b ON a.userid = b.id
+        WHERE a.status = 0
+    </select>
+
+</mapper>

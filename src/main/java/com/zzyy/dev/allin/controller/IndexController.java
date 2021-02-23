@@ -1,6 +1,7 @@
 package com.zzyy.dev.allin.controller;
 
 import com.zzyy.dev.allin.entity.Kvs;
+import com.zzyy.dev.allin.entity.User;
 import com.zzyy.dev.allin.servie.IndexService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,12 @@ public class IndexController {
         return "toPicture";
     }
 
+
+    @RequestMapping("/toCard")
+    public String toCard() {
+        return "toCard";
+    }
+
     @RequestMapping("/error/page")
     public String error() {
         return "error";
@@ -63,4 +70,32 @@ public class IndexController {
         request.getSession().setAttribute("user", "darling");
         return true;
     }
+
+    @RequestMapping("/check/user")
+    @ResponseBody
+    public User checkUser(HttpServletRequest request, HttpServletResponse response) {
+
+        String username = request.getParameter("username");
+
+        User user = indexService.getUserByname(username);
+
+        request.getSession().setAttribute("user", user);
+        return user;
+    }
+
+    @RequestMapping("/card")
+    public String card() {
+        return "card";
+    }
+
+    @RequestMapping("/quit")
+    @ResponseBody
+    public boolean quit(HttpServletRequest request, HttpServletResponse response) {
+
+
+        request.getSession().removeAttribute("user");
+        return true;
+    }
+
+
 }
