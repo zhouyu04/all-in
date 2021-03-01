@@ -22,11 +22,11 @@
 <div class="row">
     <div class="row">
         <div class="col-md-4">
-            <a href="/toPicture">这是图片</a>
+            <a href="/toPicture"><h1>这是图片</h1></a>
         </div>
         <div class="col-md-4">
-            <a href="/toCard">这是打牌</a></div>
-        <div class="col-md-4">哈哈哈哈</div>
+            <a href="/toCard"><h1>这是打牌</h1></a></div>
+        <div class="col-md-4"><h1>哈哈哈哈</h1></div>
     </div>
 </div>
 

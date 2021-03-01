@@ -16,9 +16,15 @@ public class House {
 
     private int status;
 
-    private int times;
+    private long times;
+
+    private long userId;
 
     private List<User> users;
 
     private String usernames;
+
+
+
+
 }

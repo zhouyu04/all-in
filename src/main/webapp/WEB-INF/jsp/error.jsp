@@ -20,8 +20,8 @@
 <div class="row">
     <div class="row">
         <div class="col-md-4"></div>
-        <div class="col-md-4"><h6>错误啦</h6>
-        </div>
+        <div class="col-md-4"><h6>错误啦</h6></div>
+        <div>${msg}</div>
         <div class="col-md-4"></div>
     </div>
 </div>
