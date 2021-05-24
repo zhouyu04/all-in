@@ -1,9 +1,32 @@
 package com.zzyy.dev.allin.utils;
 
+import com.zzyy.dev.allin.entity.User;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class FileTypeJudge {
+
+
+    public static void main(String[] args) {
+        List<User> users = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            User user = new User();
+            user.setId(i);
+            user.setUsername("周" + i);
+            users.add(user);
+        }
+
+        Map<Long, User> collect = users.stream().collect(Collectors.toMap(User::getId, v -> v, (v1, v2) -> v1));
+        System.out.println(collect);
+
+
+    }
 
     /**
      * Constructor
