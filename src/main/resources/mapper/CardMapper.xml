@@ -9,16 +9,103 @@
 
         <collection property="users" column="userid" ofType="com.zzyy.dev.allin.entity.User">
             <id property="id" column="u_id"/>
+            <result property="username" column="username"/>
             <result property="nickname" column="nickname"/>
         </collection>
 
     </resultMap>
 
+    <resultMap id="userMap" type="com.zzyy.dev.allin.entity.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="nickname" column="nickname"/>
+    </resultMap>
+
+
+    <resultMap id="recordMap" type="com.zzyy.dev.allin.entity.CardRecord">
+        <id property="id" column="id"/>
+        <result property="index" column="index"/>
+        <result property="houseId" column="houseId"/>
+
+        <collection property="scores" ofType="com.zzyy.dev.allin.entity.Score">
+            <id property="id" column="s_id"/>
+            <result property="score" column="score"/>
+            <association property="user" column="userId" javaType="com.zzyy.dev.allin.entity.User">
+                <id property="id" column="u_id"/>
+                <result property="username" column="username"/>
+                <result property="nickname" column="nickname"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <resultMap id="scoreMap" type="com.zzyy.dev.allin.entity.Score">
+        <id property="id" column="id"/>
+        <result property="score" column="score"/>
+        <association property="user" column="user_id" javaType="com.zzyy.dev.allin.entity.User">
+            <id property="id" column="u_id"/>
+            <result property="username" column="username"/>
+            <result property="nickname" column="nickname"/>
+        </association>
+    </resultMap>
+
 
     <select id="getHouse" resultMap="houseMap">
-        SELECT * FROM house a
-        LEFT JOIN users b ON a.userid = b.id
+        SELECT a.*,b.* FROM house a
+        LEFT JOIN house_user hu ON a.id = hu.house_id
+        LEFT JOIN users b ON hu.user_id = b.id
         WHERE a.status = 0
+    </select>
+
+    <select id="checkIsActive" resultType="int">
+        select count(*) from house where id = #{num} and status = 0
+    </select>
+
+    <insert id="joinHouse">
+        insert into house_user(house_id,user_id) value (#{num},#{userId})
+    </insert>
+
+    <select id="checkExist" resultType="int">
+        select count(*) from house where status = 0
+    </select>
+
+    <insert id="createHouse" parameterType="com.zzyy.dev.allin.entity.House" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        insert into house(times,userid)value (#{times},#{userId})
+    </insert>
+
+    <select id="getHouseUser" resultMap="userMap">
+        SELECT b.* FROM house a
+        LEFT JOIN house_user hu ON a.id = hu.house_id
+        LEFT JOIN users b ON hu.user_id = b.id
+        WHERE a.id = #{num}
+    </select>
+
+    <select id="getRecord" resultMap="recordMap">
+        SELECT a.id,a.house_id AS "houseId",a.index,
+        b.id AS "s_id",b.score,
+        c.id AS "u_id",c.nickname,c.username
+        FROM card_index a
+        LEFT JOIN card_score b ON a.id = b.index_id
+        LEFT JOIN users c ON b.user_id = c.id
+        WHERE a.house_id = #{num} ORDER BY a.index
+    </select>
+
+    <select id="getUsers" resultMap="userMap">
+        select * from users
+    </select>
+
+    <select id="findById" resultMap="scoreMap">
+        select * from card_score where index_id = #{indexId} and user_id = #{userId}
+    </select>
+
+    <update id="updateById" parameterType="com.zzyy.dev.allin.entity.Score">
+        update card_score set score = #{score} where id = #{id}
+    </update>
+
+    <select id="getMaxIndex" resultType="int">
+        SELECT MAX(a.index) FROM card_index a
+        LEFT JOIN card_score b ON a.id = b.index_id
+        WHERE a.house_id = #{num} AND b.user_id = #{userId}
     </select>
 
 </mapper>

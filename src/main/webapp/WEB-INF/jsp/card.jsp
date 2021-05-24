@@ -25,14 +25,42 @@ ${user.username}&nbsp${user.nickname}
 <hr>
 <!--显示房间号 -->
 <div class="row">
-    <div class="col-md-4">
-        房间号:<input id="num" value="">
+    <div class="col-md-6">
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    房间号:<input id="num" type="text" readonly="readonly">
+                </td>
+                <td>
+                    <div class="col-md-2">房间人:</div>
+                    <div class="col-md-4">
+                        <input id="people" value="" readonly="readonly">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    状态:<input id="stu" type="text" readonly="readonly">
+                </td>
+                <td>
+                    <button id="join">加入房间</button>
+                </td>
+            </tr>
+        </table>
+
     </div>
-</div>
-<div class="row">
-    <div class="col-md-2">房间人:</div>
-    <div class="col-md-4">
-        <input id="people" value="">
+
+    <div class="col-md-6">
+        <table class="table table-bordered">
+            <tr>
+                <td>局数:<input id="times" type="number"></td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="add">创建房间</button>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 
@@ -48,10 +76,6 @@ ${user.username}&nbsp${user.nickname}
         crossorigin="anonymous"></script>
 
 
-<%--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>--%>
-<script src="/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="/js/google-analytics.js" crossorigin="anonymous"></script>
-
 <script src="/viewer/js/viewer.js"></script>
 <script src="/viewer/js/main.js"></script>
 
@@ -61,19 +85,22 @@ ${user.username}&nbsp${user.nickname}
 
 <!-- Initialize Swiper -->
 <script>
-    function getHou() {
-        $.get("/card/getHouse", null, function (data) {
-            console.log(data)
+    $.get("/card/getHouse", null, function (data) {
+        console.log(data)
 
-            if (data == null || data.id == 0) {
-                window.location.href = "/error/page"
+        var id = data.id;
+        if (id > 0) {
+            $("#num").val(data.id);
+            $("#people").val(data.usernames);
+            if (data.status == 0) {
+                $("#stu").val("等待中")
+            } else if (data.status == 1) {
+                $("#stu").val("游戏中")
             } else {
-                $("num").attr(data.id);
-                $("people").attr()
+                $("#stu").val("懒得分配状态中")
             }
-
-        })
-    }
+        }
+    })
 
 </script>
 
@@ -82,13 +109,24 @@ ${user.username}&nbsp${user.nickname}
     $("#quit").click(function () {
         $.get("/quit", null, function (data) {
             if (data) {
-                window.location.reload();
-                alert("操作成功")
+                window.location.href = "/toCard";
             }
 
         })
 
+    });
+
+    $("#join").click(function () {
+        var num = $("#num").val();
+        window.location.href = "/card/join?num=" + num;
+    });
+
+    $("#add").click(function () {
+        var times = $("#times").val();
+        window.location.href = "/card/add?times=" + times;
     })
+
+
 </script>
 
 </body>
