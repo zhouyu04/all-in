@@ -6,16 +6,16 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class LvYueMoney {
+public class LvYueMoney extends BaseMoney{
 
     //科目代码
     private String subjectCode;
 
     private String subjectName;
 
-    private Date openDate;
+    private String openDate;
 
-    private Date empDate;
+    private String empDate;
 
     //凭证
     private String proof;
@@ -27,17 +27,18 @@ public class LvYueMoney {
     private String remark;
 
     //借方金额
-    private BigDecimal debitMoney;
+    private String debitMoney;
 
     //贷方金额
-    private BigDecimal creditMoney;
+    private String creditMoney;
 
-    private BigDecimal money;
+    private String money;
+
 
     public LvYueMoney() {
     }
 
-    public LvYueMoney(String subjectCode, String subjectName, Date openDate, Date empDate, String proof, String info, String remark, BigDecimal debitMoney, BigDecimal creditMoney, BigDecimal money) {
+    public LvYueMoney(String subjectCode, String subjectName, String openDate, String empDate, String proof, String info, String remark, String debitMoney, String creditMoney, String money) {
         this.subjectCode = subjectCode;
         this.subjectName = subjectName;
         this.openDate = openDate;
